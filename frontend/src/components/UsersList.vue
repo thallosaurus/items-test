@@ -5,8 +5,8 @@
                 Add
             </n-button>
         </n-flex>
-        <n-data-table :columns="columns" :data="data" />
-    </n-space>0
+        <n-data-table :columns="columns" :data="data"/>
+    </n-space>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ import { h } from 'vue';
 import { NButton } from 'naive-ui'
 
 import { RouterLink } from 'vue-router'
+import { router } from '../router.js';
 
 export default {
     async setup() {
@@ -28,8 +29,15 @@ export default {
             { title: "Username", key: "username" },
             {
                 title: "Action", key: "id", render: (row) => {
-                    return h(RouterLink, {
+                    /*return h(RouterLink, {
                         to: "/users/" + row.id
+                    },*/
+                    return h(NButton,{
+                        strong: true,
+                        size: "small",
+                        onClick: () => {
+                            router.push("/users/" + row.id)
+                        }
                     },
                         {
                             default: () => "Open"

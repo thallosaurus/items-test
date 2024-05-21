@@ -15,6 +15,7 @@ abstract class BaseError {
 }
 
 abstract class StringError extends BaseError {
+
     constructor(msg: string) {
         super(Status.NORMAL, {
             msg

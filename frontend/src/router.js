@@ -7,6 +7,7 @@ import ItemsView from './views/ItemsView.vue';
 import SingleItemView from './views/SingleItemView.vue';
 import UsersView from './views/UsersView.vue';
 import SingleUsersView from './views/SingleUsersView.vue';
+import SearchView from './views/SearchView.vue';
 
 const routes = [
     { path: '/', component: HomeView },
@@ -16,10 +17,16 @@ const routes = [
     { path: '/items', component: ItemsView },
     { path: '/items/:id', component: SingleItemView },
     { path: '/users', component: UsersView },
-    { path: '/users/:id', component: SingleUsersView }
+    { path: '/users/:id', component: SingleUsersView },
+    { path: '/search/:q', component: SearchView, props: true }
 ]
 
 export const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to, from) => {
+    console.log(to, from)
+    return true;
 })

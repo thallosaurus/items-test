@@ -17,8 +17,10 @@
 
 <script>
 import { h } from 'vue'
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
+import { router } from '../router.js'
 import { getItems, addNewItem } from '../netcode.js';
+import { NButton } from 'naive-ui'
 
 const createColumns = () => {
     return [
@@ -30,10 +32,14 @@ const createColumns = () => {
             title: "Action",
             key: "id",
             render(row) {
-                return h(RouterLink, {
+                /*return h(RouterLink, {
                     size: "small",
                     to: '/items/' + row.id
-                },
+                },*/
+                return h(NButton, {
+                strong: true,
+                size: 'small',
+                onclick: () => router.push("/items/" + row.id)},
                     { default: () => 'Open' })
             }
         }

@@ -3,30 +3,23 @@ import { Application, Router, oakCors } from './deps.ts';
 import { db, setupDatabase } from './src/database.ts';
 import { router } from './src/router.ts';
 
-class ResponseData {
-    status: number
-    data: any
-    constructor(data: any) {
-        this.data = data;
-        this.status = 0;
-    }
-}
-
+//setup database tables
 await setupDatabase();
 
-const port = 8080;
+const baseRouter = new Router();
+baseRouter.use("/api", router.routes())
+baseRouter.use("/api", router.allowedMethods())
+
+const port = Deno.env.get("PORT") ?? "8080";
 export const app = new Application();
 app.use(oakCors());
+app.use(baseRouter.routes())
+app.use(baseRouter.allowedMethods())
 
-console.log("Listening to", port)
-
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-
-Deno.addSignalListener("SIGINT", () => {  
+Deno.addSignalListener("SIGINT", () => {
     db.close();
     Deno.exit();
 });
 
-await app.listen({ port });
+console.log("Listening to", port);
+await app.listen({ port: parseInt(port) });
