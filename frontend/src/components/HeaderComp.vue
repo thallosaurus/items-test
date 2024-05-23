@@ -3,7 +3,7 @@
         <n-flex justify="space-between">
             <div style="padding:1em">
                 <n-button @click="$emit('menu')">
-                    <n-icon>
+                    <n-icon color="#ffffff" size="26">
                         <IosMenu />
                     </n-icon>
                 </n-button>
@@ -30,6 +30,9 @@ export default {
         return {
             query: ""
         }
+    },
+    components: {
+        IosMenu
     },
     methods: {
         search() {
